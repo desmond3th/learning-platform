@@ -1,20 +1,5 @@
 import dotenv from "dotenv"
-import dbConnect from "./db/index.js";
-import { app } from "./app.js";
+import express from "express"
 
 dotenv.config({path: './.env'})
 
-dbConnect()
-.then(
-    app.listen(process.env.PORT || 4000, () => {
-        console.log(`Server is started and running at port : ${process.env.PORT}`)
-    })
-)
-.catch((error) => {
-    console.log("Error ecountered while connecting : ", error)
-})
-
-app.on("error" , (error) => {
-    console.log("Error ecountered", error)
-    throw error
-})

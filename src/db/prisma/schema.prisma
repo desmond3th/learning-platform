@@ -1,0 +1,67 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define model for Instructors
+model Instructor {
+  id        String       @id @default(uuid())
+  name      String
+  email     String
+  courses   Course[]
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+// Define model for Courses
+model Course {
+  id            String        @id @default(uuid())
+  name          String
+  maxSeats      Int
+  startDate     DateTime
+  instructor    Instructor @relation(fields: [instructorId], references: [id])
+  instructorId  String
+  learners      Lead[]     @relation(name: "CourseLead")
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+// Define enum for Lead status
+enum LeadStatus {
+  ACCEPT
+  REJECT
+  WAITLIST
+}
+
+// Define model for Leads (Learners)
+model Lead {
+  id             String       @id @default(uuid())
+  name           String
+  email          String
+  phoneNumber    String
+  linkedInProfile String
+  status         LeadStatus  @default(WAITLIST)
+  courses        Course[]  @relation(name: "CourseLead")
+  comments       Comment[]
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+// Define model for Comments
+model Comment {
+  id       String    @id @default(uuid())
+  content  String
+  lead     Lead   @relation(fields: [leadId], references: [id])
+  leadId   String
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}

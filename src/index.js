@@ -1,10 +1,24 @@
 import dotenv from "dotenv"
-<<<<<<< HEAD
 import express from "express"
-=======
-import { dbConnect } from "./db/index.db.js"
-import { app } from "./app.js";
->>>>>>> d1fed2a7ff136b401806119aca764a9d5cfe36f2
+import cors from "cors"
+import cookieParser from "cookie-parser";
+
+const app = express();
 
 dotenv.config({path: './.env'})
 
+const PORT = 3000
+
+app.use(cors({
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+}))
+
+app.use(express.json({limit: "13kb"}))
+app.use(express.urlencoded({extended: true, limit: "13kb"}))
+app.use(express.static("public"))
+app.use(cookieParser())
+
+
+
+export { app }

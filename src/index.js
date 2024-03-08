@@ -7,8 +7,6 @@ const app = express();
 
 dotenv.config({path: './.env'})
 
-const PORT = 3000
-
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true
@@ -20,5 +18,10 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 export { app }

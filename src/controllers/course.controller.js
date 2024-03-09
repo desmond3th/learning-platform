@@ -106,6 +106,29 @@ const getCoursesForInstructor = asyncHandler(async (req, res) => {
 });
 
 
+const searchCourses = asyncHandler(async (req, res) => {
+    const { name, maxSeats } = req.query;
+
+    const searchConditions = {};
+    if (name) {
+        searchConditions.name = { contains: name };
+    }
+    if (maxSeats) {
+        searchConditions.maxSeats = parseInt(maxSeats);
+    }
+
+    const courses = await prisma.course.findMany({
+        where: searchConditions
+    });
+
+    return res.status(200)
+    .json(
+        new ApiResponse(200, courses, "Courses retrieved successfully")
+    );
+});
+
+
 export { createCourse,
         updateCourse,
-        getCoursesForInstructor }
+        getCoursesForInstructor,
+        searchCourses }

@@ -37,4 +37,48 @@ const createInstructor = asyncHandler(async(req, res) => {
 
 });
 
-export { createInstructor, }
+
+const getInstructorDetails = asyncHandler(async(req, res) => {
+    const {email} = req.params;
+
+    const instructor = await prisma.instructor.findUnique({
+        where: {
+            email: email
+        }
+    });
+
+    if(!instructor) {
+        throw new ApiError(400, "Instructor not found");
+    }
+
+    return res.status(200)
+    .json(
+        new ApiResponse(200, instructor, "Instructor details fetched successfully")
+    );
+});
+
+
+const getInstructorCourses = asyncHandler(async(req, res) => {
+    const { instructorId } = req.params;
+
+    try {
+        const courses = await prisma.course.findMany({
+            where: {
+                instructorId: instructorId
+            }
+        });
+
+        res.status(200)
+        .json(
+            new ApiResponse(200, courses, "Instructor courses fetched successfully")
+        );
+
+    } catch (error) {
+        throw new ApiError(500, "Error fetching instructor courses")
+    }
+});
+
+
+export { createInstructor,
+        getInstructorCourses,
+        getInstructorDetails} 

@@ -22,10 +22,11 @@ const PORT = process.env.PORT || 3000;
 
 // import route
 import instructorRoute from "./routes/instructor.routes.js";
-
+import courseRoute from "./routes/course.routes.js";
 
 // declaration
 app.use("/api/v1/instructor", instructorRoute)
+app.use("/api/v1/course", courseRoute)
 
 
 app.listen(PORT, () => {

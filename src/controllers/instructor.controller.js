@@ -13,6 +13,16 @@ const createInstructor = asyncHandler(async(req, res) => {
         throw new ApiError(400, "Name and email must be provided")
     }
 
+    const existingInstructor = await prisma.instructor.findUnique({
+        where: {
+            email: email
+        }
+    });
+
+    if (existingInstructor) {
+        throw new ApiError(409, "Instructor with the same email already exists");
+    }
+
     const instructor = await prisma.instructor.create({
         data: {
             name : name,
@@ -27,4 +37,4 @@ const createInstructor = asyncHandler(async(req, res) => {
 
 });
 
-export {createInstructor}
+export { createInstructor, }

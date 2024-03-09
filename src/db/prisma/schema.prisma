@@ -12,7 +12,7 @@ datasource db {
 model Instructor {
   id        String       @id @default(uuid())
   name      String
-  email     String
+  email     String       @unique
   courses   Course[]
 
   createdAt  DateTime  @default(now())
@@ -44,7 +44,7 @@ enum LeadStatus {
 model Lead {
   id             String       @id @default(uuid())
   name           String
-  email          String
+  email          String       @unique
   phoneNumber    String
   linkedInProfile String
   status         LeadStatus  @default(WAITLIST)

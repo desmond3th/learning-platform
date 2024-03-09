@@ -67,6 +67,5 @@ const getCommentsForLead = asyncHandler(async (req, res) => {
 });
 
 
-
 export {addCommentToLead,
     getCommentsForLead}

@@ -69,16 +69,16 @@ npm run dev
 
 If you prefer to deploy the application using Docker, follow these steps:
 
-Pull the Docker image:
+#### 1. Pull the Docker image:
 
 ```
 docker pull saurabh3th/airtribe 
 ```
 
-Run the Docker container:
+#### 2. Run the Docker container:
 
 ```
-docker run -p 3000:3000 -e DATABASE_URL=<your_aiven_postgres_uri> -d saurabh3th/airtribe
+docker run -p 3000:3000 -e DATABASE_URL=<your_aiven_postgres_uri> saurabh3th/airtribe
 ```
 
 Note : You can provide a custom name for the container using the --name option.
@@ -87,7 +87,7 @@ Note : You can provide a custom name for the container using the --name option.
 
 After successfully setting up the application, you can test the APIs using Postman. Below are the steps to test a few sample APIs:
 
-#### Get Instructor Details API :
+#### 1. Get Instructor Details API :
 
 ```
 GET : http://localhost:PORT/api/v1/instructor/get-details/:email
@@ -96,7 +96,7 @@ GET : http://localhost:PORT/api/v1/instructor/get-details/:email
 
 Replace `PORT` with the port number where your application is running and `:email` with the email of the instructor you want to get details for.
 
-#### Create Course API :
+#### 2. Create Course API :
 
 ```
 POST http://localhost:PORT/api/v1/course/create
@@ -112,7 +112,7 @@ Request Body (JSON):
 }
 ```
 
-#### Update Course Details API :
+#### 3. Update Course Details API :
 ```
 PATCH http://localhost:PORT/api/v1/course/update/:courseId
 ```
@@ -128,7 +128,7 @@ Request Body (JSON):
 }
 ```
 
-#### Course Registration API
+#### 4. Course Registration API
 ```
 POST http://localhost:PORT/api/v1/lead/register/:courseId
 ```

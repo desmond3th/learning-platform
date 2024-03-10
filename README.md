@@ -5,7 +5,8 @@
 - [Overview](#Overview)
 - [Technologies used](#Technologies_used)
 - [Getting Started](#Getting_Started)
-- [Dockerization (Optional)](#Dockerization)
+- [Dockerization](#Dockerization_(Optional))
+- [Testing](Testing_APIs_(using_Postman))
   
 ## 🧐 Overview
 
@@ -64,7 +65,7 @@ Replace ```your_aiven_postgres_uri``` with the service URI provided by Aiven for
 npm run dev
 ```
 
-### Dockerization (Optional)
+## 🐋 Dockerization (Optional)
 
 If you prefer to deploy the application using Docker, follow these steps:
 
@@ -82,7 +83,7 @@ docker run -p 3000:3000 -e DATABASE_URL=<your_aiven_postgres_uri> -d saurabh3th/
 
 Note : You can provide a custom name for the container using the --name option.
 
-## Testing APIs (using Postman)
+## 🔧 Testing APIs (using Postman)
 
 After successfully setting up the application, you can test the APIs using Postman. Below are the steps to test a few sample APIs:
 

@@ -26,9 +26,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Node.js installed on your machine
-Docker installed on your machine (optional, for Dockerized deployment)
-Postman for testing APIs (recommended)
+- Node.js installed on your machine   
+- Docker installed on your machine (optional, for Dockerized deployment)  
+- Postman for testing APIs (recommended)
 
 ### Setup
 

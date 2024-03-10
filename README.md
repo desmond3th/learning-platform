@@ -59,6 +59,14 @@ DATABASE_URL=your_aiven_postgres_uri
 
 Replace ```your_aiven_postgres_uri``` with the service URI provided by Aiven for your PostgreSQL database.
 
+#### 6. Configure Prisma
+
+If getting error while configuring prisma, to map your data model to the database schema, you need to use this: 
+
+```
+npx prisma migrate dev --name init
+```
+
 #### 5. Start the server:
 
 ```

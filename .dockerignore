@@ -1,0 +1,11 @@
+node_modules
+*.env
+.env
+.env*
+Dockerfile
+.dockerignore
+.git
+.gitignore
+.prettierignore
+.prettierrc
+README.md

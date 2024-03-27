@@ -24,7 +24,7 @@ const registerForCourse = asyncHandler(async (req, res) => {
         throw new ApiError(404, "Course not found");
     }
 
-    const lead = await prisma.lead.create({
+    const learner = await prisma.learner.create({
         data: {
             name: name,
             email: email,
@@ -41,32 +41,32 @@ const registerForCourse = asyncHandler(async (req, res) => {
 
     return res.status(200)
     .json(
-        new ApiResponse(200, lead, "User registered for the course successfully")
+        new ApiResponse(200, learner, "User registered for the course successfully")
     );
 });
 
 
-const updateLeadStatus = asyncHandler(async (req, res) => {
-    const { leadId } = req.params;
+const updateLearnerStatus = asyncHandler(async (req, res) => {
+    const { learnerId } = req.params;
     const { status } = req.body;
 
     if (!status) {
         throw new ApiError(400, "Status is required");
     }
 
-    const lead = await prisma.lead.findUnique({
+    const learner = await prisma.learner.findUnique({
         where: {
-            id: leadId
+            id: learnerId
         }
     });
 
-    if (!lead) {
-        throw new ApiError(404, "Lead not found");
+    if (!learner) {
+        throw new ApiError(404, "Learner not found");
     }
 
-    const updatedLead = await prisma.lead.update({
+    const updatedLearner = await prisma.learner.update({
         where: {
-            id: leadId
+            id: learnerId
         },
         data: {
             status: status.toUpperCase()
@@ -75,12 +75,12 @@ const updateLeadStatus = asyncHandler(async (req, res) => {
 
     return res.status(200)
     .json(
-        new ApiResponse(200, updatedLead, "Lead status updated successfully")
+        new ApiResponse(200, updatedLearner, "Learner status updated successfully")
     );
 });
 
 
-const getLeadDetails = asyncHandler(async (req, res) => {
+const getLearnerDetails = asyncHandler(async (req, res) => {
     const { name, email } = req.query;
 
     if(!name && !email) {
@@ -95,7 +95,7 @@ const getLeadDetails = asyncHandler(async (req, res) => {
         searchConditions.email = { contains: email };
     }
 
-    const leads = await prisma.lead.findMany({
+    const learners = await prisma.learner.findMany({
         where: searchConditions,
         select: {
             id : true,
@@ -110,15 +110,15 @@ const getLeadDetails = asyncHandler(async (req, res) => {
 
     return res.status(200).
     json(
-        new ApiResponse(200, leads, "Leads retrieved successfully")
+        new ApiResponse(200, learners, "Learners retrieved successfully")
     );
 });
 
 
-const getAllLeadsForCourse = asyncHandler(async (req, res) => {
+const getAllLearnersForCourse = asyncHandler(async (req, res) => {
     const { courseId } = req.params;
 
-    const leads = await prisma.lead.findMany({
+    const learners = await prisma.learner.findMany({
         where: {
             courses: {
                 some: {
@@ -139,12 +139,12 @@ const getAllLeadsForCourse = asyncHandler(async (req, res) => {
 
     return res.status(200)
     .json(
-        new ApiResponse(200, leads, "Leads retrieved successfully")
+        new ApiResponse(200, learners, "Learner retrieved successfully")
     );
 });
 
 
 export {registerForCourse,
-        updateLeadStatus,
-        getLeadDetails,
-        getAllLeadsForCourse }
+        updateLearnerStatus,
+        getLearnerDetails,
+        getAllLearnersForCourse }

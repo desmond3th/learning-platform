@@ -5,25 +5,25 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const addCommentToLead = asyncHandler(async (req, res) => {
-    const { leadId } = req.params;
+const addCommentToLearner = asyncHandler(async (req, res) => {
+    const { learnerId } = req.params;
     const { content } = req.body;
 
-    const lead = await prisma.lead.findUnique({
+    const learner = await prisma.learner.findUnique({
         where: {
-            id: leadId
+            id: learnerId
         }
     });
 
-    if (!lead) {
-        throw new ApiError(404, "Lead not found");
+    if (!learner) {
+        throw new ApiError(404, "Learner not found");
     }
 
     const newComment = await prisma.comment.create({
         data: {
             content: content,
-            lead: {
-                connect: { id: leadId }
+            learner: {
+                connect: { id: learnerId }
             }
         }
     });
@@ -35,22 +35,22 @@ const addCommentToLead = asyncHandler(async (req, res) => {
 });
 
 
-const getCommentsForLead = asyncHandler(async (req, res) => {
-    const { leadId } = req.params;
+const getCommentsForLearner = asyncHandler(async (req, res) => {
+    const { learnerId } = req.params;
 
-    const lead = await prisma.lead.findUnique({
+    const learner = await prisma.learner.findUnique({
         where: {
-            id: leadId
+            id: learnerId
         }
     });
 
-    if (!lead) {
-        throw new ApiError(404, "Lead not found");
+    if (!learner) {
+        throw new ApiError(404, "Learner not found");
     }
 
     const comments = await prisma.comment.findMany({
         where: {
-            leadId: leadId
+            learnerId: learnerId
         },
         select: {
             id: true,
@@ -67,5 +67,5 @@ const getCommentsForLead = asyncHandler(async (req, res) => {
 });
 
 
-export {addCommentToLead,
-    getCommentsForLead}
+export {addCommentToLearner,
+    getCommentsForLearner}

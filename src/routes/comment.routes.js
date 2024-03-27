@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { addCommentToLead, getCommentsForLead } from "../controllers/comment.controller.js";
+import { addCommentToLearner, getCommentsForLearner } from "../controllers/comment.controller.js";
 
 const router = new Router();
 
-router.route("/add/:leadId").post(addCommentToLead);
-router.route("/get-comments/:leadId").get(getCommentsForLead);
+router.route("/add/:learnerId").post(addCommentToLearner);
+router.route("/get-comments/:learnerId").get(getCommentsForLearner);
 
 export default router;

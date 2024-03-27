@@ -48,29 +48,29 @@ model Course {
   startDate     DateTime
   instructor    Instructor @relation(fields: [instructorId], references: [id])
   instructorId  String
-  learners      Lead[]     @relation(name: "CourseLead")
+  learners      Learner[]     @relation(name: "CourseLearner")
   users         User[]        @relation(name: "userCourseHistory")
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
 }
 
-// Define enum for Lead status
-enum LeadStatus {
+// Define enum for learner status
+enum LearnerStatus {
   ACCEPT
   REJECT
   WAITLIST
 }
 
-// Define model for Leads (Learners)
-model Lead {
+// Define model for learners
+model Learner {
   id             String       @id @default(uuid())
   name           String
   email          String       @unique
   phoneNumber    String
   linkedInProfile String
-  status         LeadStatus  @default(WAITLIST)
-  courses        Course[]  @relation(name: "CourseLead")
+  status         LearnerStatus  @default(WAITLIST)
+  courses        Course[]  @relation(name: "CourseLearner")
   comments       Comment[]
 
   createdAt  DateTime  @default(now())
@@ -81,8 +81,8 @@ model Lead {
 model Comment {
   id       String    @id @default(uuid())
   content  String
-  lead     Lead   @relation(fields: [leadId], references: [id])
-  leadId   String
+  learner     Learner   @relation(fields: [learnerID], references: [id])
+  learnerID   String
 
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt

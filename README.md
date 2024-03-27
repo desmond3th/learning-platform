@@ -1,4 +1,4 @@
-# AirTribe-Internship-Assignment
+# Online-learning-platform
 
 ## 📝 Table of Contents
 
@@ -10,7 +10,7 @@
   
 ## 🧐 Overview
 
-This backend application serves as the backend for Airtribe's application-based courses. It provides APIs for managing courses, instructors, leads (learners), and comments.
+This backend application serves as the backend for learning platform. It provides APIs for managing courses, instructors, leads (learners), and comments.
 
 ## Technologies Used
 - **Node.js**
@@ -36,7 +36,7 @@ These instructions will get you a copy of the project up and running on your loc
 #### 1. Clone the repository:
 
 ```
-git clone <repository_url>
+git clone github.com/desmond3th/learning-platform
 ```
 
 #### 2. Navigate to the project directory:

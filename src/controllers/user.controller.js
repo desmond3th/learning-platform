@@ -222,7 +222,60 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 });
 
 
+const changePassword = asyncHandler(async (req, res) => {
+    const { oldPassword, newPassword } = req.body;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: req.user?.id
+        }
+    });
+
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    const validPassword = await bcrypt.compare(oldPassword, user.password);
+
+    if (!validPassword) {
+        throw new ApiError(400, "Old password is incorrect");
+    }
+
+    const hashedNewPassword = await bcrypt.hash(newPassword, 8);
+    await prisma.user.update({
+        where: {
+            id: user.id
+        },
+        data: {
+            password: hashedNewPassword
+        }
+    });
+
+    return res.status(200).json(
+        new ApiResponse(200, {}, "Password changed successfully")
+    );
+});
+
+const getCurrentUser = asyncHandler(async (req, res) => {
+    const user = await prisma.user.findUnique({
+        where: {
+            id: req.user?.id
+        }
+    });
+
+    if (!user) {
+        throw new ApiError(404, "User not found");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, user, "User fetched successfully")
+    );
+});
+
+
 export { registerUser, 
         loginUser,
         logoutUser,
-        refreshAccessToken }
+        refreshAccessToken,
+        changePassword,
+        getCurrentUser }

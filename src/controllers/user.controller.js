@@ -53,6 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 
+/*** Token Generation ***/
 const generateAccessToken = (userId) => {
     return jwt.sign(
         {
@@ -76,6 +77,7 @@ const  generateRefreshToken = (userId) => {
         }
     );
 }
+
 
 const loginUser = asyncHandler(async (req, res) => {
 
@@ -255,6 +257,7 @@ const changePassword = asyncHandler(async (req, res) => {
         new ApiResponse(200, {}, "Password changed successfully")
     );
 });
+
 
 const getCurrentUser = asyncHandler(async (req, res) => {
     const user = await prisma.user.findUnique({

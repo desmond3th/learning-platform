@@ -276,9 +276,16 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 
+const getUserCourses = asyncHandler(async (req, res) => {
+    const { userId} = req.params;
+    
+});
+
+
 export { registerUser, 
         loginUser,
         logoutUser,
         refreshAccessToken,
         changePassword,
-        getCurrentUser }
+        getCurrentUser,
+        getUserCourses }

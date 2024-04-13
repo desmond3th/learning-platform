@@ -276,9 +276,34 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 
-const getUserCourses = asyncHandler(async (req, res) => {
-    const { userId} = req.params;
-    
+const getCourseHistory = asyncHandler(async (req, res) => {
+    try {
+        const userId = req.user.id;
+
+        const userWithCourseHistory = await prisma.user.findUnique({
+            where: {
+                id: userId,
+            },
+            include: {
+                courseHistory: {
+                    include: {
+                        instructor: true,
+                    },
+                },
+            },
+        });
+
+        if (!userWithCourseHistory) {
+            throw new ApiError(404, "user with course history not found");
+        }
+
+        return res.status(200)
+        .json(
+            new ApiResponse(200, userWithCourseHistory.courseHistory, "Course histroy fetched successfully")
+        );
+    } catch (error) {
+        throw new ApiError(500, "Internal Server Error", error);
+    }
 });
 
 
@@ -288,4 +313,4 @@ export { registerUser,
         refreshAccessToken,
         changePassword,
         getCurrentUser,
-        getUserCourses }
+        getCourseHistory }
